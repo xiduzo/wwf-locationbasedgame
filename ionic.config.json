@@ -1,0 +1,8 @@
+{
+  "name": "lbg",
+  "app_id": "d49d1534",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
