@@ -11,6 +11,9 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { Geolocation } from '@ionic-native/geolocation';
+import { BLE } from '@ionic-native/ble';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -34,6 +37,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
+    Geolocation,
+    BLE,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
