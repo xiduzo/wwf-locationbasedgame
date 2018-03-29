@@ -1,9 +1,15 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js';
 import { Constants } from '../../lib/constants'
 import  'rxjs/add/operator/filter';
+
+import { AlertController } from 'ionic-angular';
+
+import { IntroductionModel } from '../models/introduction/introduction'
+
+import { GeolocationService } from '../../lib/geolocation';
 
 @Component({
   selector: 'page-home',
@@ -13,22 +19,25 @@ export class HomePage {
 
   public _map: any;
   public _locationMarker: any;
-  public SUBSCRIPTION;
+  public SUBSCRIPTION:any;
   public followPosition:boolean = false;
   public _pois:any = [
-    {lat: 52.35615253511886, lon: 4.856342029571579, name: 'checkpoint 1'},
-    {lat: 52.355156520991045, lon: 4.857371997833297, name: 'checkpoint 2'},
-    {lat: 52.35509099295879, lon: 4.856277656555221, name: 'checkpoint 3'},
+    {lat: 52.35615253511886, lon: 4.856342029571579, name: 'checkpoint 1', game: 'walkapath'},
+    {lat: 52.355156520991045, lon: 4.857371997833297, name: 'checkpoint 2', game: 'makeapicture'},
+    {lat: 52.35509099295879, lon: 4.856277656555221, name: 'checkpoint 3', game: 'makepicture'},
   ];
 
   constructor(
     public navCtrl: NavController,
-    protected geolocation: Geolocation
+    protected geolocation: Geolocation,
+    public modalCtrl: ModalController,
+    private geolocationService: GeolocationService,
+    public alertCtrl: AlertController
   ) {
   }
 
   ngOnInit() {
-    mapboxgl.accessToken = 'pk.eyJ1IjoieGlkdXpvIiwiYSI6ImNqZHU3bnBncjJpNDIyeHFvMWh6NjA2amoifQ.SzgCLkqb9wUmQbIpdNhwuA';
+    mapboxgl.accessToken = Constants.ACCESS_TOKEN;
     let mapStyle:any = Constants.MAP_STYLE;
     mapStyle.sources.overlay = {
       type: "image",
@@ -40,15 +49,13 @@ export class HomePage {
         [4.85530151200328, 52.35187368967347]
       ]
     };
-    // console.log(mapStyle.sources.overlay);
-    // console.log(mapStyle.sources);
     this._map = new mapboxgl.Map({
       style: mapStyle,
       center: [4.86, 52.356],
       zoom: 17,
       // minZoom: 15, //restrict map zoom - buildings not visible beyond 13
       maxZoom: 20,
-      container: 'map'
+      container: 'homemap'
     });
 
     this._map.on('movestart', () => {
@@ -59,6 +66,19 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
+    this.watchPosition();
+  }
+
+  ionViewDidEnter() {
+    this.moveToMyLocation();
+  }
+
+  ionViewWillLeave() {
+    // We do not need to drain the users batery
+    if(this.SUBSCRIPTION) this.SUBSCRIPTION.unsubscribe()
+  }
+
+  watchPosition() {
     this.SUBSCRIPTION = this.geolocation.watchPosition()
     .filter((p) => p.coords !== undefined) //Filter Out Errors
     .subscribe(position => {
@@ -72,19 +92,8 @@ export class HomePage {
 
       this.checkIfNearPoi(position.coords);
 
-      if(this.followPosition) {
-        this.moveToMyLocation();
-      }
+      if(this.followPosition) this.moveToMyLocation()
     });
-  }
-
-  ionViewDidEnter() {
-    this.moveToMyLocation();
-  }
-
-  ionViewWillLeave() {
-    // We do not need to drain the users batery
-    this.SUBSCRIPTION.unsubscribe();
   }
 
   // Get geolocation of phone
@@ -97,7 +106,14 @@ export class HomePage {
       });
       this.followPosition = true;
     }).catch((error) => {
-      console.log('Error getting location', error)
+      // let alert = this.alertCtrl.create({
+      //   title: 'New Friend!',
+      //   subTitle: 'Your friend, Obi wan Kenobi, just accepted your friend request!',
+      //   buttons: ['OK']
+      // });
+      // alert.present();
+
+      console.log('Error getting location', JSON.stringify(error));
     });
   }
 
@@ -113,29 +129,27 @@ export class HomePage {
 
   checkIfNearPoi(coords) {
     this._pois.forEach(poi => {
-      let distance = this.distanceToPoi(
-        coords.latitude,
-        coords.longitude,
-        poi.lat,
-        poi.lon
+      const closeToPoint = this.geolocationService.closeToPoint(
+        {latitude: coords.latitude, longitude: coords.longitude},
+        {latitude: poi.lat, longitude: poi.lon},
+        10
       );
 
-      // Within X meters
-      if(distance * 1000 < 10) {
-        console.log("at checkpoint", poi.name);
-      }
+      if(closeToPoint) this.showModel(poi, coords)
     });
   }
 
-  distanceToPoi(lat1, lon1, lat2, lon2) {
-    var p = 0.017453292519943295;    // Math.PI / 180
-    var c = Math.cos;
-    var a = 0.5 - c((lat2 - lat1) * p)/2 +
-            c(lat1 * p) * c(lat2 * p) *
-            (1 - c((lon2 - lon1) * p))/2;
+  showModel(poi, coords) {
+    // Dont need to watch position anymore
+    if(this.SUBSCRIPTION) this.SUBSCRIPTION.unsubscribe()
 
-    // Return in meters
-    return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+    const model = this.modalCtrl.create(IntroductionModel, {poi: poi, coords: coords});
+
+    model.onDidDismiss((watch) => {
+      if(watch) this.watchPosition()
+    });
+
+    model.present();
   }
 
 }

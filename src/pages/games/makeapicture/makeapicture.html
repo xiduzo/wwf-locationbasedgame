@@ -1,0 +1,14 @@
+<ion-content>
+  <img [src]="_img" alt="">
+  <button ion-button block *ngIf="_takenImage">
+    Save picture!
+  </button>
+  <button ion-button block (click)="makePicture()">
+    <span *ngIf="!_takenImage">
+      Take a picure
+    </span>
+    <span *ngIf="_takenImage">
+      Take another one
+    </span>
+  </button>
+</ion-content>
