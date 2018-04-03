@@ -8,8 +8,10 @@ import  'rxjs/add/operator/filter';
 import { AlertController } from 'ionic-angular';
 
 import { IntroductionModel } from '../models/introduction/introduction'
+import { MapModel } from '../models/map/map'
 
 import { GeolocationService } from '../../lib/geolocation';
+import { NativeAudio } from '@ionic-native/native-audio';
 
 @Component({
   selector: 'page-home',
@@ -24,7 +26,7 @@ export class HomePage {
   public _pois:any = [
     {lat: 52.35615253511886, lon: 4.856342029571579, name: 'checkpoint 1', game: 'walkapath'},
     {lat: 52.355156520991045, lon: 4.857371997833297, name: 'checkpoint 2', game: 'makeapicture'},
-    {lat: 52.35509099295879, lon: 4.856277656555221, name: 'checkpoint 3', game: 'makepicture'},
+    {lat: 52.35509099295879, lon: 4.856277656555221, name: 'checkpoint 3', game: 'sound'},
   ];
 
   constructor(
@@ -32,11 +34,20 @@ export class HomePage {
     protected geolocation: Geolocation,
     public modalCtrl: ModalController,
     private geolocationService: GeolocationService,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    private nativeAudio: NativeAudio
   ) {
   }
 
   ngOnInit() {
+    const model = this.modalCtrl.create(MapModel);
+    model.present();
+    // Set complex volume doesnt seem to work, so made this quick sollution
+    this.nativeAudio.preloadComplex('frogSound_close', '../../assets/sounds/frog.mp3', 1, 1, 0);
+    this.nativeAudio.preloadComplex('frogSound_medium', '../../assets/sounds/frog.mp3', 0.75, 1, 0);
+    this.nativeAudio.preloadComplex('frogSound_far', '../../assets/sounds/frog.mp3', 0.5, 1, 0);
+    this.nativeAudio.preloadComplex('frogSound_start', '../../assets/sounds/frog.mp3', 0.25, 1, 0);
+
     mapboxgl.accessToken = Constants.ACCESS_TOKEN;
     let mapStyle:any = Constants.MAP_STYLE;
     mapStyle.sources.overlay = {
@@ -53,8 +64,8 @@ export class HomePage {
       style: mapStyle,
       center: [4.86, 52.356],
       zoom: 17,
-      // minZoom: 15, //restrict map zoom - buildings not visible beyond 13
-      maxZoom: 20,
+      minZoom: 17, //restrict map zoom - buildings not visible beyond 13
+      maxZoom: 17,
       container: 'homemap'
     });
 
@@ -106,13 +117,6 @@ export class HomePage {
       });
       this.followPosition = true;
     }).catch((error) => {
-      // let alert = this.alertCtrl.create({
-      //   title: 'New Friend!',
-      //   subTitle: 'Your friend, Obi wan Kenobi, just accepted your friend request!',
-      //   buttons: ['OK']
-      // });
-      // alert.present();
-
       console.log('Error getting location', JSON.stringify(error));
     });
   }
@@ -134,6 +138,36 @@ export class HomePage {
         {latitude: poi.lat, longitude: poi.lon},
         10
       );
+
+      if(poi.game === 'sound') {
+        const distance1 = this.geolocationService.closeToPoint(
+          {latitude: coords.latitude, longitude: coords.longitude},
+          {latitude: poi.lat, longitude: poi.lon},
+          10
+        );
+        const distance2 = this.geolocationService.closeToPoint(
+          {latitude: coords.latitude, longitude: coords.longitude},
+          {latitude: poi.lat, longitude: poi.lon},
+          30
+        );
+        const distance3 = this.geolocationService.closeToPoint(
+          {latitude: coords.latitude, longitude: coords.longitude},
+          {latitude: poi.lat, longitude: poi.lon},
+          50
+        );
+
+        if(distance1) {
+          this.nativeAudio.play('frogSound_close');
+        } else if(distance2) {
+          this.nativeAudio.play('frogSound_medium');
+        } else if(distance3) {
+          this.nativeAudio.play('frogSound_far');
+        } else {
+          this.nativeAudio.play('frogSound_start');
+        }
+
+        console.log(distance1, distance2, distance3);
+      }
 
       if(closeToPoint) this.showModel(poi, coords)
     });

@@ -11,6 +11,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Geolocation } from '@ionic-native/geolocation';
 import { BLE } from '@ionic-native/ble';
 import { Camera } from '@ionic-native/camera';
+import { NativeAudio } from '@ionic-native/native-audio';
 
 // Pages
 import { AboutPage } from '../pages/about/about';
@@ -20,6 +21,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 // Models
 import { IntroductionModel } from '../pages/models/introduction/introduction';
+import { MapModel } from '../pages/models/map/map';
+import { NarrativeModel } from '../pages/models/narrative/narrative';
 
 // Games
 import { WalkAPathGame } from '../pages/games/walkapath/walkapath';
@@ -36,6 +39,8 @@ import { GeolocationService } from '../lib/geolocation';
     HomePage,
     TabsPage,
     IntroductionModel,
+    MapModel,
+    NarrativeModel,
     WalkAPathGame,
     MakeAPictureGame
   ],
@@ -51,6 +56,8 @@ import { GeolocationService } from '../lib/geolocation';
     HomePage,
     TabsPage,
     IntroductionModel,
+    MapModel,
+    NarrativeModel,
     WalkAPathGame,
     MakeAPictureGame
   ],
@@ -61,6 +68,7 @@ import { GeolocationService } from '../lib/geolocation';
     BLE,
     Camera,
     GeolocationService,
+    NativeAudio,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

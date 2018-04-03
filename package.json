@@ -25,6 +25,7 @@
     "@ionic-native/camera": "^4.6.0",
     "@ionic-native/core": "4.4.0",
     "@ionic-native/geolocation": "^4.5.3",
+    "@ionic-native/native-audio": "^4.6.0",
     "@ionic-native/splash-screen": "4.4.0",
     "@ionic-native/status-bar": "4.4.0",
     "@ionic/pro": "1.0.19",
@@ -38,6 +39,7 @@
     "cordova-plugin-geolocation": "^4.0.1",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^1.1.16",
+    "cordova-plugin-nativeaudio": "^3.0.9",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-whitelist": "^1.3.3",
     "ionic-angular": "3.9.2",
@@ -54,16 +56,15 @@
   "description": "An Ionic project",
   "cordova": {
     "plugins": {
-      "cordova-plugin-geolocation": {
-        "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
-      },
       "cordova-plugin-whitelist": {},
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-ble-central": {},
-      "cordova-plugin-camera": {}
+      "cordova-plugin-camera": {},
+      "cordova-plugin-geolocation": {},
+      "cordova-plugin-nativeaudio": {}
     },
     "platforms": [
       "android",

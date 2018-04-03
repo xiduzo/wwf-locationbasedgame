@@ -1,0 +1,29 @@
+$location-marker-size: 30px;
+$map-button-size: 40px;
+
+.mapboxgl-ctrl a.mapboxgl-ctrl-logo,
+.mapboxgl-ctrl.mapboxgl-ctrl-attrib.mapboxgl-compact {
+  display: none;
+}
+
+.mapboxgl-map {
+  width: 100%;
+  height: 100%;
+}
+
+.mapboxgl-user-location-dot.mapboxgl-marker {
+  background-color: transparent;
+  background-image: url('../assets/imgs/panda.png');
+  background-size: cover;
+  width: $location-marker-size;
+  height: $location-marker-size;
+  box-shadow: none;
+
+  &:before,
+  &:after {display: none;}
+}
+
+button.mapboxgl-ctrl-icon {
+  width: $map-button-size;
+  height: $map-button-size;
+}
