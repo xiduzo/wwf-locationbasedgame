@@ -1,3 +1,18 @@
-<ion-content>
-  narrative
+<ion-content *ngIf="_narrative">
+  <div ion-fixed padding>
+    <h1>
+      {{ _narrative.name }}
+    </h1>
+    <div text-center margin>
+      <img width="200" height="200" [src]="_narrative.image" alt="_narrative.name">
+    </div>
+    <article>
+      <p *ngFor="let line of _narrative.linesSpoken">
+        {{ line }}
+      </p>
+    </article>
+    <button ion-button round block (click)="closeModal()" [disabled]="!_buttonAvailable">
+      Got it
+    </button>
+  </div>
 </ion-content>

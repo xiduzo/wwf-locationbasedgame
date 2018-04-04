@@ -7,6 +7,8 @@ import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+
 // (native) plugins
 import { Geolocation } from '@ionic-native/geolocation';
 import { BLE } from '@ionic-native/ble';
@@ -40,6 +42,7 @@ import { GeolocationService } from '../lib/geolocation';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -60,6 +63,7 @@ import { GeolocationService } from '../lib/geolocation';
     Camera,
     GeolocationService,
     NativeAudio,
+    HttpClientModule,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
