@@ -1,0 +1,28 @@
+<ion-content>
+  <div ion-fixed padding>
+    <section>
+      <div text-center margin>
+        <ion-img center width="200" height="200" src="assets/imgs/characters/frog.jpg" alt=""></ion-img>
+      </div>
+      <article>
+        <h1>
+          Sun bathe claws in your leg kitty
+        </h1>
+        <p>
+          Prance along on top of the garden fence, annoy the neighbor's dog and make it bark pretend you want to go out but then don't.
+        </p>
+        <p>
+          Friends are not food stare at wall turn and meow stare at wall some more meow again continue staring sit in a box for hours stare at ceiling.
+        </p>
+        <p>
+          Meowwww knock dish off table head butt cant eat out of my own dish.
+        </p>
+      </article>
+    </section>
+
+    <button ion-button round block (click)="startGame()" [disabled]="!_canStartGame">
+      Start game
+      <ion-icon name="ion-arrow-right-c"></ion-icon>
+    </button>
+  </div>
+</ion-content>

@@ -1,4 +1,5 @@
-$location-marker-size: 30px;
+$location-marker-size: 40px;
+$postition-marker_size: 50px;
 $map-button-size: 40px;
 
 .mapboxgl-ctrl a.mapboxgl-ctrl-logo,
@@ -26,4 +27,11 @@ $map-button-size: 40px;
 button.mapboxgl-ctrl-icon {
   width: $map-button-size;
   height: $map-button-size;
+}
+
+.poi_marker {
+  background-size: cover;
+  width: $postition-marker_size;
+  height: $postition-marker_size;
+  background-image: url('../assets/imgs/flag.png');
 }

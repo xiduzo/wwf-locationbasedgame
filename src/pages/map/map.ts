@@ -1,24 +1,28 @@
 import { Component } from '@angular/core';
 import { NavParams, ModalController,  ViewController } from 'ionic-angular';
 
-import { Constants } from '../../../lib/constants'
+import { Constants } from '../../lib/constants'
 
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js';
 
 import { Geolocation } from '@ionic-native/geolocation';
-import { GeolocationService } from '../../../lib/geolocation';
+import { GeolocationService } from '../../lib/geolocation';
 
 
 @Component({
-  selector: 'map-model',
+  selector: 'map-page',
   templateUrl: 'map.html'
 })
-export class MapModel {
+export class MapPage {
 
-  // Core for any map
+  // Map object on which we do our magic on later
   public _map:any;
-  public _locationMarker:any;
-  private UPDATE_GPS_LOCATION:any;
+
+  // Should the app track your location
+  private _trackUserPath:boolean = false;
+
+  // Should the app trigger when you are at location
+  private _triggerOnLocation:boolean = false;
 
   constructor(
     private viewCtrl: ViewController,
@@ -31,24 +35,34 @@ export class MapModel {
 
   ngOnInit() {
     this.displayMap();
-
-    if(this.params.get('pois')) {
-      this.addPointsOfInterest(this.params.get('poi'));
-    }
-
-    if(this.params.get('walkapath')) {
-      this.addPath(this.params.get('walkapath'));
-    }
   }
 
   ionViewWillEnter() {
+    const pois = this.params.get('pois');
+    const walkapath = this.params.get('walkapath');
+    const trackUserPath = this.params.get('trackUserPath');
+    const triggerOnPoi = this.params.get('triggerOnPoi');
 
+    // What should we do on the map
+    if(pois) this.addPointsOfInterest(pois);
+    if(walkapath) this.addPath(walkapath);
+
+    // What kind of interaction do we need
+    if(walkapath) this.addPath(walkapath);
   }
 
   ionViewDidEnter() {
-  }
+    const geolocate = new mapboxgl.GeolocateControl({
+        positionOptions: { enableHighAccuracy: true },
+        trackUserLocation: true
+    });
 
-  closeModel() { this.viewCtrl.dismiss(true); }
+    this._map.addControl(geolocate, 'bottom-right');
+
+    geolocate.on('geolocate', function(e) {
+      console.log(e);
+    });
+  }
 
   displayMap() {
     mapboxgl.accessToken = Constants.ACCESS_TOKEN;
@@ -62,29 +76,22 @@ export class MapModel {
         [4.882552755594588, 52.35187368967347],[4.85530151200328, 52.35187368967347]
       ]
     };
+    let mapZoom:number = 19;
     this._map = new mapboxgl.Map({
       style: mapStyle,
       center: [4.86, 52.356],
-      zoom: 18,
-      minZoom: 18,
-      maxZoom: 18,
-      container: 'modalmap'
-    });
-
-    this._map.addControl(new mapboxgl.GeolocateControl({
-        positionOptions: { enableHighAccuracy: true },
-        trackUserLocation: true
-    }), 'bottom-right');
-
-    this._map.on('geolocate', (data) => {
-      console.log(data);
+      zoom: mapZoom,
+      minZoom: mapZoom,
+      maxZoom: mapZoom,
+      container: 'modalmap',
+      pitch: 50
     });
   }
 
   addPointsOfInterest(pois) {
     pois.forEach(poi => {
         var el = document.createElement('div');
-        el.className = 'flag_marker';
+        el.className = 'poi_marker';
         new mapboxgl.Marker(el)
         .setLngLat([poi.lon, poi.lat])
         .addTo(this._map);

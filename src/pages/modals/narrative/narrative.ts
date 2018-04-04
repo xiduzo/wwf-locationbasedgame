@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { NavParams, ModalController,  ViewController } from 'ionic-angular';
 
 @Component({
-  selector: 'narrative-model',
+  selector: 'narrative-modal',
   templateUrl: 'narrative.html'
 })
-export class NarrativeModel {
+export class NarrativeModal {
 
   constructor(
     private viewCtrl: ViewController,

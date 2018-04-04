@@ -14,15 +14,12 @@ import { Camera } from '@ionic-native/camera';
 import { NativeAudio } from '@ionic-native/native-audio';
 
 // Pages
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
+import { MapPage } from '../pages/map/map';
 
 // Models
-import { IntroductionModel } from '../pages/models/introduction/introduction';
-import { MapModel } from '../pages/models/map/map';
-import { NarrativeModel } from '../pages/models/narrative/narrative';
+import { IntroductionModal } from '../pages/modals/introduction/introduction';
+import { NarrativeModal } from '../pages/modals/narrative/narrative';
 
 // Games
 import { WalkAPathGame } from '../pages/games/walkapath/walkapath';
@@ -34,13 +31,10 @@ import { GeolocationService } from '../lib/geolocation';
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
     HomePage,
-    TabsPage,
-    IntroductionModel,
-    MapModel,
-    NarrativeModel,
+    MapPage,
+    IntroductionModal,
+    NarrativeModal,
     WalkAPathGame,
     MakeAPictureGame
   ],
@@ -51,13 +45,10 @@ import { GeolocationService } from '../lib/geolocation';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
     HomePage,
-    TabsPage,
-    IntroductionModel,
-    MapModel,
-    NarrativeModel,
+    MapPage,
+    IntroductionModal,
+    NarrativeModal,
     WalkAPathGame,
     MakeAPictureGame
   ],
