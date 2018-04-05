@@ -18,7 +18,21 @@ export class GeolocationService {
             c(currentLocation.latitude * p) * c(point.latitude * p) *
             (1 - c((point.longitude - currentLocation.longitude) * p))/2;
 
-    // Return in meters
+    // Return in kilometers
     return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
   }
+
+  // https://stackoverflow.com/a/27939662
+  getBearing(lat1,lng1,lat2,lng2) {
+      var dLon = this._toRad(lng2-lng1);
+      var y = Math.sin(dLon) * Math.cos(this._toRad(lat2));
+      var x = Math.cos(this._toRad(lat1))*Math.sin(this._toRad(lat2)) - Math.sin(this._toRad(lat1))*Math.cos(this._toRad(lat2))*Math.cos(dLon);
+      var brng = this._toDeg(Math.atan2(y, x));
+      return ((brng + 360) % 360);
+  }
+
+  _toRad(deg) { return deg * Math.PI / 180; }
+
+  _toDeg(rad) { return rad * 180 / Math.PI; }
+
 }

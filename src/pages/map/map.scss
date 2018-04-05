@@ -1,5 +1,5 @@
 $location-marker-size: 40px;
-$postition-marker_size: 50px;
+$postition-marker_size: 70px;
 $map-button-size: 40px;
 
 .mapboxgl-ctrl a.mapboxgl-ctrl-logo,
@@ -29,9 +29,36 @@ button.mapboxgl-ctrl-icon {
   height: $map-button-size;
 }
 
-.poi__marker {
+.mapboxgl-marker {
   background-size: cover;
   width: $postition-marker_size;
-  height: $postition-marker_size;
-  background-image: url('../assets/imgs/flag.png');
+  height: $postition-marker_size * 1.22;
+
+  &.poi {
+    &__dome {background-image: url('../assets/imgs/pois/dome.png');}
+    &__frog {background-image: url('../assets/imgs/pois/frog.png');}
+    &__search {background-image: url('../assets/imgs/pois/search.png');}
+    &__statue {background-image: url('../assets/imgs/pois/statue.png');}
+    &__stones {background-image: url('../assets/imgs/pois/stones.png');}
+    &__hexagons {background-image: url('../assets/imgs/pois/hexagons.png');}
+    &__castle {background-image: url('../assets/imgs/pois/castle.png');}
+  }
+}
+
+.compass {
+  position: fixed;
+  z-index: 9999;
+  bottom: 0;
+  left: 0;
+  .compass__arrow {
+    background-size: cover;
+    background-image: url('../assets/imgs/compasspointer.png');
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.distnaceToPoi {
+  position: absolute;
+  top: 0;
 }

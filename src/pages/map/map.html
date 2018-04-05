@@ -1,3 +1,10 @@
 <ion-content>
   <div id='modalmap' class='map'></div>
+
+  <div class="distnaceToPoi" *ngIf="_distanceToPoi">
+    {{ _distanceToPoi }} meter
+  </div>
+  <div class="compass">
+    <div class="compass__arrow"></div>
+  </div>
 </ion-content>

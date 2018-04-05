@@ -40,7 +40,7 @@ export class NarrativeModal {
       // When narrator is done talking, show next line
       setTimeout(() => {
         this.pushLineToNarrative(this._narrative.narrative[this._narrative.linesSpoken.length]);
-      }, 40 * line.length)
+      }, 4 * line.length)
     } else {
       this._buttonAvailable = true;
     }

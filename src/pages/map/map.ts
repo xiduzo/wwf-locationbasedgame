@@ -19,13 +19,10 @@ export class MapPage {
 
   // Map object on which we do our magic on later
   public _map:any;
+  private _myLocation:any;
 
   // Does the user needs to follow a trail
   private _trackUserPath:boolean = false;
-  private _pathToTrack:any = {
-    type: 'FeatureCollection',
-    features: [{type: 'Feature', geometry: {type: 'LineString',coordinates: []}}]
-  };
   private _walkedPath:any = {
     type: 'FeatureCollection',
     features: [{type: 'Feature', geometry: {type: 'LineString',coordinates: []}}]
@@ -34,6 +31,7 @@ export class MapPage {
   // Should the app trigger when you are at location
   private _triggerOnPoi:boolean = false;
   private _pois:any;
+  private _distanceToPoi:number;
 
   constructor(
     private viewCtrl: ViewController,
@@ -54,7 +52,6 @@ export class MapPage {
 
     this._trackUserPath = this.params.get('trackUserPath') ? true : false;
     this._triggerOnPoi = this.params.get('triggerOnPoi') ? true : false;
-    this._pathToTrack.features[0].geometry.coordinates = this.params.get('pathToTrack') ? this.params.get('pathToTrack') : [];
 
     // Add pois to map
     if(this._pois) this.addPointsOfInterest(this._pois);
@@ -72,7 +69,7 @@ export class MapPage {
         [4.882552755594588, 52.35187368967347],[4.85530151200328, 52.35187368967347]
       ]
     };
-    let mapZoom:number = 19;
+    let mapZoom:number = 20;
     this._map = new mapboxgl.Map({
       style: mapStyle,
       center: [4.86, 52.356],
@@ -82,9 +79,11 @@ export class MapPage {
       container: 'modalmap',
       pitch: 50
     })
+    .on('movestart', (e) => {
+      this.updateNavigator(this._myLocation);
+    })
     .once('styledata', () => {
-      if(!this._map.getSource('pathToTrack')) this.addPathToMap("pathToTrack", this._pathToTrack, '#9E9E9E');
-      if(!this._map.getSource('walkedPath')) this.addPathToMap("walkedPath", this._walkedPath, '#03A9F4');
+      if(!this._map.getSource('walkedPath')) this.addPathToMap("walkedPath", this._walkedPath, '#03A9F4', 12);
     });
   }
 
@@ -95,8 +94,13 @@ export class MapPage {
         trackUserLocation: true
     })
     .on('geolocate', (e) => {
-      if(vm._trackUserPath) vm.updatePathOnMap(e.coords);
       if(vm._triggerOnPoi) vm.checkPoiRange(e.coords);
+      if(vm._trackUserPath) vm.updatePathOnMap(e.coords);
+
+      this._myLocation = e.coords;
+      vm.updateNavigator(e.coords);
+      vm.updatePositionToPoi(e.coords);
+
     });
 
     this._map.addControl(geolocate, 'bottom-right');
@@ -104,27 +108,28 @@ export class MapPage {
 
   addPointsOfInterest(pois) {
     pois.forEach(poi => {
+      if(poi.active !== true) return;
       var el = document.createElement('div');
-      el.className = 'poi__'+poi.marker;
+      el.className = 'poi__'+poi.markerLabel;
       new mapboxgl.Marker(el)
-      .setLngLat([poi.lon, poi.lat])
+      .setLngLat([poi.coords.longitude, poi.coords.latitude])
       .addTo(this._map);
     });
   }
 
-  addPathToMap(id, path, color) {
+  addPathToMap(id, path, color, width) {
     this._map.addSource(id, { type: 'geojson', data: path });
     this._map.addLayer({
       id: id,
       source: id,
       type: "line",
-      "paint": { "line-color": color, "line-width": 8 }
+      "paint": { "line-color": color, "line-width": width },
+      "layout": { "line-join": "round", "line-cap": "round" },
     });
   }
 
   updatePathOnMap(coords) {
     this._walkedPath.features[0].geometry.coordinates.push([coords.longitude, coords.latitude]);
-
     // Update the walked path
     if(this._map.getSource('walkedPath')) this._map.getSource('walkedPath').setData(this._walkedPath);
   }
@@ -132,25 +137,54 @@ export class MapPage {
   checkPoiRange(coords) {
     this._pois.forEach(poi => {
 
-        let closeToPoint = this.geolocationService.closeToPoint(
-          coords,
-          {latitude: poi.lat, longitude: poi.lon},
-          25
-        );
+        let closeToPoint = this.geolocationService.closeToPoint(coords,poi.coords,poi.range);
 
         if(closeToPoint && poi.active) {
           poi.active = !poi.active;
           let modal = this.modalCtrl.create(NarrativeModal, {narrativeFile: poi.narrativeFile});
           modal.present();
           modal.onDidDismiss(() => {
-            if(poi.initialPoi && this._trackUserPath) {
-              if(this._map.getSource('pathToTrack')) this._map.getSource('pathToTrack').setData(this._pathToTrack);
+            if(poi.pathToNextPoi && this._trackUserPath) {
+              // Reset the walked path and show the path to walk
+              this._walkedPath.features[0].geometry.coordinates = [];
+
+              if(poi.poisToActivate) {
+                poi.poisToActivate.forEach(poiToActivate => {
+                    const poi = this._pois.find(poi => poi.id === poiToActivate);
+
+                    poi.active = true;
+                    this.addPointsOfInterest([poi]);
+                });
+              }
             }
           });
-        } else if(!closeToPoint && poi.activeBackground && !poi.initialPoi) {
-          poi.active = true;
         }
     });
   }
 
+
+  updateNavigator(coords) {
+    if(!coords) return;
+
+    const poi = this._pois.find(poi => poi.active === true);
+
+    if(!poi) return;
+
+    const bearing = this.geolocationService.getBearing(coords.latitude, coords.longitude, poi.coords.latitude, poi.coords.longitude);
+    const compass:any = document.querySelectorAll('.compass__arrow')[0];
+
+    if(compass) compass.style.transform = 'rotate('+Math.round(bearing - this._map.getBearing())+'deg)';
+  }
+
+  updatePositionToPoi(coords) {
+    if(!coords) return;
+
+    const poi = this._pois.find(poi => poi.active === true);
+
+    if(!poi) return;
+
+    const distance = this.geolocationService.distanceToPoint(coords, poi.coords);
+
+    this._distanceToPoi = distance * 1000; // convert to meters
+  }
 }
