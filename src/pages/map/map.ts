@@ -12,6 +12,8 @@ import { NarrativeModal } from '../modals/narrative/narrative';
 
 import { NativeAudio } from '@ionic-native/native-audio';
 
+import { DecimalPipe } from '@angular/common';
+
 
 @Component({
   selector: 'map-page',
@@ -30,8 +32,7 @@ export class MapPage {
 
   private _geojson:any;
   private _triggerOnPoi:boolean = false;
-  private _distanceToPoi:number;
-  private _timeToPoi:number;
+  private _distanceToPoi:number = 0;
   private _activePoi:any;
 
   constructor(
@@ -70,21 +71,10 @@ export class MapPage {
       style: mapStyle,
       center: [4.86, 52.356],
       zoom: mapZoom,
-      minZoom: mapZoom,
-      maxZoom: mapZoom,
+      // minZoom: mapZoom,
+      // maxZoom: mapZoom,
       container: 'modalmap',
       pitch: 60
-    })
-    .on('click', (e) => {
-      // This is a hack for the markers click event
-      this._geojson.features.forEach(poi => {
-        const coords = {longitude: e.lngLat.lng, latitude: e.lngLat.lat};
-        let closeToPoint = this.geolocationService.closeToPoint(coords,poi.properties.coords,12);
-
-        if(closeToPoint && !this._trackUserPath) this._activePoi = poi;
-
-        this.updateNavigator(this._myLocation);
-      });
     })
     .on('move', (e) => {
       this.updateNavigator(this._myLocation);
@@ -123,7 +113,14 @@ export class MapPage {
       .setHTML('<h3>' + marker.properties.title + '</h3>'))
       .addTo(this._map);
 
+      this.selectMarkerOnClick(marker, document.querySelectorAll('.poi__'+marker.properties.markerLabel)[0]);
       if(marker.properties.sound) this.addSound(marker.properties.id, marker.properties.sound, marker.properties.soundRange)
+    });
+  }
+
+  selectMarkerOnClick(marker, element) {
+    element.addEventListener('click', () => {
+      if(!this._trackUserPath) this._activePoi = marker;
     });
   }
 
@@ -222,7 +219,5 @@ export class MapPage {
     const distance = this.geolocationService.distanceToPoint(coords, this._activePoi.properties.coords);
 
     this._distanceToPoi = distance * 1000; // convert to meters
-    // https://en.wikipedia.org/wiki/Preferred_walking_speed
-    this._timeToPoi = this._distanceToPoi / 1.4; // Convert to seconds
   }
 }

@@ -48,10 +48,11 @@ button.mapboxgl-ctrl-icon {
 .compass {
   position: fixed;
   z-index: 9999;
-  bottom: 0;
-  left: 0;
+  bottom: 7vh;
+  left: 38vw;
   width: 100px;
   height: 100px;
+  .compass__distance,
   .compass__background,
   .compass__arrow {
     position: absolute;
@@ -62,15 +63,22 @@ button.mapboxgl-ctrl-icon {
   }
   .compass__background {
     background-image: url('../assets/imgs/compassbackground.png');
-    width: 100px;
-    height: 100px;
+    width: 25vw;
+    height: 25vw;
   }
   .compass__arrow {
-    width: 40px;
-    height: 40px;
-    left: 30px;
-    bottom: 30px;
+    width: 5vw;
+    height: 5vw;
+    left: 10vw;
+    bottom: 10vw;
     background-image: url('../assets/imgs/compasspointer.png');
+  }
+  .compass__distance {
+    margin-bottom: -5vh;
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+    font-size: 1.25em;
   }
 }
 

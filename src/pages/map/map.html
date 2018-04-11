@@ -1,11 +1,11 @@
 <ion-content>
   <div id='modalmap' class='map'></div>
 
-  <div class="distnaceToPoi" *ngIf="_distanceToPoi">
-    {{ _distanceToPoi }} meter ({{ _timeToPoi }} seconds)
-  </div>
   <div class="compass">
     <div class="compass__background"></div>
     <div class="compass__arrow"></div>
+    <div class="compass__distance" *ngIf="_distanceToPoi">
+      {{ (_distanceToPoi * 1.4 / 60) | number:'0.0-0' }} min.
+    </div>
   </div>
 </ion-content>
