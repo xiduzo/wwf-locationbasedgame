@@ -1,0 +1,44 @@
+narrative-modal {
+  .map {
+    height: 40vh;
+  }
+  .narrative {
+    height: 60vh;
+    .illustrations {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      height: 32vh;
+      margin-top: -20vh;
+
+      .marker {
+        position: relative;
+        max-width: 200px;
+        margin-top: -5vh;
+      }
+      .character {
+        position: relative;
+        max-width: 200px;
+        margin-top: -10vh;
+
+      }
+    }
+
+    ion-card {
+      ion-card-header {
+        color: color($colors, primary, base);
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+
+      ion-card-content {
+        p {
+          &:not(:last-of-type) {
+            margin-bottom: 1em;
+          }
+        }
+      }
+    }
+  }
+}

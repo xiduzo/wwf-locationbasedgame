@@ -1,0 +1,5 @@
+questions-game {
+  [ion-fixed], .fixed-content {
+    background: lighten(color($colors, primary, bases), 55);
+  }
+}

@@ -2,9 +2,10 @@
   <div id='modalmap' class='map'></div>
 
   <div class="distnaceToPoi" *ngIf="_distanceToPoi">
-    {{ _distanceToPoi }} meter
+    {{ _distanceToPoi }} meter ({{ _timeToPoi }} seconds)
   </div>
   <div class="compass">
+    <div class="compass__background"></div>
     <div class="compass__arrow"></div>
   </div>
 </ion-content>

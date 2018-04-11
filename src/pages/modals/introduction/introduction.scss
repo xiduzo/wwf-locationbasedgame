@@ -1,8 +1,15 @@
 introduction-modal {
-  [ion-fixed] {
+  [ion-fixed], .fixed-content {
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background: #DEF9FF;
+
+    article {
+      p {
+        font-size: 1.75em;
+      }
+    }
   }
 }

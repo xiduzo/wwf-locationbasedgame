@@ -1,0 +1,40 @@
+<ion-content>
+  <div ion-fixed padding *ngIf="_narrative">
+    <section>
+      <img [src]="_narrative.image" alt="">
+    </section>
+    <section *ngIf="_activeQuestion <= _questions.length">
+      <div>
+        Vraag {{ _activeQuestion }} / {{ _questions.length }}
+      </div>
+      <div *ngFor="let question of _questions">
+        <div *ngIf="_activeQuestion === question.index">
+          {{ question.question }}
+          <div *ngFor="let answer of question.answers">
+            <button ion-button large round block (click)="answerQuestion(question, answer.correct)">
+              {{ answer.text }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section *ngIf="_activeQuestion  > _questions.length">
+      <h1>
+        Op welke steen ben je geeindigd? Geteld van links naar rechts.
+      </h1>
+      <section>
+        <span *ngFor="let stone of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]">
+          <button ion-button round (click)="selectStone(stone)" [ngClass]="{
+            'button-md-secondary': this._selectedStone === stone,
+            'button-md-primary': this._selectedStone !== stone
+          }">
+            {{stone}}
+          </button>
+        </span>
+        <button ion-button round block large [disabled]="_selectedStone === 0" (click)="confirmNumber()">
+          Bevestig nummer
+        </button>
+      </section>
+    </section>
+  </div>
+</ion-content>

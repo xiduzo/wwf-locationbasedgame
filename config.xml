@@ -87,11 +87,11 @@
     <plugin name="cordova-plugin-camera" spec="^4.0.2" />
     <allow-navigation href="http://145.109.154.83:8100" />
     <allow-navigation href="http://100.72.57.150:8100" />
-    <engine name="android" spec="~7.0.0" />
-    <engine name="browser" spec="~5.0.3" />
     <allow-navigation href="http://145.109.186.104:8100" />
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1" />
     <allow-navigation href="http://145.109.180.58:8100" />
     <allow-navigation href="http://145.109.198.122:8100" />
     <plugin name="cordova-plugin-nativeaudio" spec="^3.0.9" />
+    <engine name="android" spec="~7.0.0" />
+    <engine name="browser" spec="~5.0.3" />
 </widget>

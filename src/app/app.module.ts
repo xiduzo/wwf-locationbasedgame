@@ -26,9 +26,13 @@ import { NarrativeModal } from '../pages/modals/narrative/narrative';
 // Games
 import { WalkAPathGame } from '../pages/games/walkapath/walkapath';
 import { MakeAPictureGame } from '../pages/games/makeapicture/makeapicture';
+import { QuestionsGame } from '../pages/games/questions/questions';
 
 // Services
 import { GeolocationService } from '../lib/geolocation';
+
+// Testing
+import { SoundTest } from '../pages/tests/sound/sound';
 
 @NgModule({
   declarations: [
@@ -38,7 +42,9 @@ import { GeolocationService } from '../lib/geolocation';
     IntroductionModal,
     NarrativeModal,
     WalkAPathGame,
-    MakeAPictureGame
+    MakeAPictureGame,
+    QuestionsGame,
+    SoundTest
   ],
   imports: [
     BrowserModule,
@@ -53,7 +59,9 @@ import { GeolocationService } from '../lib/geolocation';
     IntroductionModal,
     NarrativeModal,
     WalkAPathGame,
-    MakeAPictureGame
+    MakeAPictureGame,
+    QuestionsGame,
+    SoundTest
   ],
   providers: [
     StatusBar,

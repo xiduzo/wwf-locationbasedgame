@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { ModalController, NavController } from 'ionic-angular';
 
 import { IntroductionModal } from '../modals/introduction/introduction';
+
+import { SoundTest } from '../tests/sound/sound';
 
 @Component({
   selector: 'page-home',
@@ -17,18 +19,26 @@ export class HomePage {
     {
       type: 2,
       name: 'Free roam'
+    },
+    {
+      type: 3,
+      name: 'test'
     }
   ]
 
   constructor(
-    private navCtrl: NavController,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private navCtrl: NavController
   ) {
   }
 
   selectNarrativeStructure(structure:any) {
-    let introductionModal = this.modalCtrl.create(IntroductionModal, { structure: structure });
-    introductionModal.present();
+    if(structure.type === 3) {
+      this.navCtrl.push(SoundTest);
+    } else {
+      let introductionModal = this.modalCtrl.create(IntroductionModal, { structure: structure });
+      introductionModal.present();
+    }
   }
 
 }

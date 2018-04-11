@@ -1,18 +1,25 @@
 <ion-content *ngIf="_narrative">
-  <div ion-fixed padding>
-    <h1>
-      {{ _narrative.name }}
-    </h1>
-    <div text-center margin>
-      <img width="200" height="200" [src]="_narrative.image" alt="_narrative.name">
-    </div>
-    <article>
-      <p *ngFor="let line of _narrative.linesSpoken">
-        {{ line }}
-      </p>
-    </article>
-    <button ion-button round block (click)="closeModal()" [disabled]="!_buttonAvailable">
-      Got it
-    </button>
+  <div ion-fixed>
+    <section class="map">
+      <div id="narrativemap"></div>
+    </section>
+    <section class="narrative" padding>
+      <div class="illustrations">
+        <img class="marker" [src]="_narrative.marker" alt="_narrative.name">
+        <img class="character" [src]="_narrative.image" alt="_narrative.name">
+      </div>
+      <ion-card padding-top>
+        <ion-card-header>
+          {{ _narrative.name }}
+        </ion-card-header>
+        <ion-card-content [innerHTML]="_narrative.narrative">
+        </ion-card-content>
+      </ion-card>
+      <section class="action" padding>
+        <button ion-button round block (click)="startGame()">
+          Start
+        </button>
+      </section>
+    </section>
   </div>
 </ion-content>
