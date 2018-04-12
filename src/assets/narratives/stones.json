@@ -1,7 +1,11 @@
 {
-  "name": "Monsieur Muis",
-  "image": "assets/imgs/characters/rat.png",
+  "name": "Meester Muis",
+  "character": "assets/imgs/characters/rat.png",
   "marker": "assets/imgs/pois/stones.png",
-  "narrative": "<p>Hey daar! Ik wist dat jullie eraan zouden komen, de [vogel] is zojuist langs gevlogen en heeft met alles over jullie verteld.</p> <p>Zijn jullie klaar om jullie kennis als een ranger te testen?</p>",
-  "game": "questions"
+  "narrative": [
+    "Ik hoorde al dat jullie onderweg waren! Mijn naam is Meester Muis en ik ga jullie ranger kennis testen"
+  ],
+  "buttonText": "Start spel",
+  "game": "questions",
+  "afterNarrativeFile": "stones2.json"
 }

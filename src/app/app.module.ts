@@ -27,6 +27,9 @@ import { NarrativeModal } from '../pages/modals/narrative/narrative';
 import { WalkAPathGame } from '../pages/games/walkapath/walkapath';
 import { MakeAPictureGame } from '../pages/games/makeapicture/makeapicture';
 import { QuestionsGame } from '../pages/games/questions/questions';
+import { CodeGame } from '../pages/games/code/code';
+import { RiddleGame } from '../pages/games/riddle/riddle';
+import { HexagonsGame } from '../pages/games/hexagons/hexagons';
 
 // Services
 import { GeolocationService } from '../lib/geolocation';
@@ -44,6 +47,9 @@ import { SoundTest } from '../pages/tests/sound/sound';
     WalkAPathGame,
     MakeAPictureGame,
     QuestionsGame,
+    CodeGame,
+    RiddleGame,
+    HexagonsGame,
     SoundTest
   ],
   imports: [
@@ -61,6 +67,9 @@ import { SoundTest } from '../pages/tests/sound/sound';
     WalkAPathGame,
     MakeAPictureGame,
     QuestionsGame,
+    CodeGame,
+    RiddleGame,
+    HexagonsGame,
     SoundTest
   ],
   providers: [

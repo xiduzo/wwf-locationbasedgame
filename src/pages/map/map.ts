@@ -71,8 +71,8 @@ export class MapPage {
       style: mapStyle,
       center: [4.86, 52.356],
       zoom: mapZoom,
-      // minZoom: mapZoom,
-      // maxZoom: mapZoom,
+      minZoom: mapZoom,
+      maxZoom: mapZoom,
       container: 'modalmap',
       pitch: 60
     })
@@ -109,8 +109,8 @@ export class MapPage {
       el.className = 'poi__'+marker.properties.markerLabel;
       new mapboxgl.Marker(el)
       .setLngLat(marker.geometry.coordinates)
-      .setPopup(new mapboxgl.Popup({ offset: 25})
-      .setHTML('<h3>' + marker.properties.title + '</h3>'))
+      // .setPopup(new mapboxgl.Popup({ offset: 25})
+      // .setHTML('<h3>' + marker.properties.title + '</h3>'))
       .addTo(this._map);
 
       this.selectMarkerOnClick(marker, document.querySelectorAll('.poi__'+marker.properties.markerLabel)[0]);
@@ -120,7 +120,10 @@ export class MapPage {
 
   selectMarkerOnClick(marker, element) {
     element.addEventListener('click', () => {
-      if(!this._trackUserPath) this._activePoi = marker;
+      if(!this._trackUserPath) {
+        this._activePoi = marker;
+        this.updateNavigator(this._myLocation);
+      }
     });
   }
 

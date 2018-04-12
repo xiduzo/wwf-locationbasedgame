@@ -1,0 +1,9 @@
+{
+  "name": "Meester Muis",
+  "character": "assets/imgs/characters/rat.png",
+  "marker": "assets/imgs/pois/stones.png",
+  "narrative": [
+    "Wow, wat zijn jullie slim! Als beloning zal ik jullie de locatie van een verborgen schat weergeven."
+  ],
+  "buttonText": "Ga naar locatie"
+}

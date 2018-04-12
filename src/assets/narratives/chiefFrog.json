@@ -1,6 +1,11 @@
 {
-  "name": "Headmaster",
-  "image": "assets/imgs/characters/chief_frog.png",
+  "name": "Hoofdmeester Hops",
+  "character": "assets/imgs/characters/chief_frog.png",
   "marker": "assets/imgs/pois/dome.png",
-  "narrative": "Shove bum in owner's face like camera lens slap kitten brother with paw, eat the fat cats food."
+  "narrative": [
+    "Hey jullie daar! Welkom bij het hoofdkwartier. Mijn naam is Hops en ik ben de hoofdranger van het Vondelpark.",
+    "Als gloednieuwe rangers gaan jullie vandaag op pad om te leren wat een ranger zoal moet kunnen.",
+    "Een ervaran ranger zit op jullie te wachten bij de Grote vijver. Veel succes en plezier vandaag!"
+  ],
+  "buttonText": "Ga naar locatie"
 }

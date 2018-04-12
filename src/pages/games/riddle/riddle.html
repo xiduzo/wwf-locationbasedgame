@@ -1,0 +1,66 @@
+<ion-content>
+  <div ion-fixed>
+    <section *ngIf="_state === 0">
+      <div class="illustration">
+        <div class="icon opacity"></div>
+        <div class="half__circle"></div>
+      </div>
+      <div class="text" padding>
+        <h1>
+          Kai's compas
+        </h1>
+        <p>
+          Kai de kikker is zijn kompas kwijt. Hij heeft hem ergens laten liggen in het bos.
+          Los het raadsel op en kom er achter waar het kompas ligt!
+        </p>
+        <button ion-button round large (click)="_state = 1">
+          Start spel
+        </button>
+      </div>
+    </section>
+    <section *ngIf="_state === 1" class="riddle">
+      <h1>
+        Kai's kompas
+      </h1>
+      <article>
+        <p>
+          Het punt waar jullie nu staan, <br>
+          Zit ik niet ver vandaan.
+        </p>
+        <p>
+          Gelukkig zit ik warm en droog, <br>
+          omgegeven door hout en hoog.
+        </p>
+        <p>
+          Zie ik jullie door een gat grootte van een munt, <br><br><br>
+          Ik ben benieuwd of je mij nu vinden kunt!
+        </p>
+      </article>
+      <ion-list>
+        <ion-item>
+          <ion-label floating name="answer">
+            Waar ligt het compas?
+          </ion-label>
+          <ion-input type="text" [(ngModel)]="_answer" (keyup)="validatePassword()"></ion-input>
+        </ion-item>
+      </ion-list>
+    </section>
+    <section *ngIf="_state === 2">
+      <div class="illustration">
+        <div class="icon"></div>
+        <div class="half__circle"></div>
+      </div>
+      <div class="text" padding>
+        <h1>
+          Kai's compas
+        </h1>
+        <p>
+          Goed gedaan je hebt het compas gevonden!
+        </p>
+        <button ion-button round large (click)="closeModal()">
+          Volgende
+        </button>
+      </div>
+    </section>
+  </div>
+</ion-content>

@@ -11,6 +11,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { QuestionsGame } from '../../games/questions/questions';
+import { CodeGame } from '../../games/code/code';
+import { RiddleGame } from '../../games/riddle/riddle';
+import { HexagonsGame } from '../../games/hexagons/hexagons';
+import { WalkAPathGame } from '../../games/walkapath/walkapath';
 
 @Component({
   selector: 'narrative-modal',
@@ -20,6 +24,7 @@ export class NarrativeModal {
 
   public _narrative:any;
   public _buttonAvailable:boolean = false;
+  public _activeNarrative:number = 0;
 
   constructor(
     private modalCtrl: ModalController,
@@ -71,6 +76,14 @@ export class NarrativeModal {
     return this.http.get("./assets/narratives/"+file);
   }
 
+  swipe(direction:string) {
+    if(direction === 'left' && this._activeNarrative + 1 < this._narrative.narrative.length) {
+      this._activeNarrative++;
+    } else if(this._activeNarrative > 0) {
+      this._activeNarrative--;
+    }
+  }
+
   closeModal() {
     this.viewCtrl.dismiss();
   }
@@ -80,9 +93,33 @@ export class NarrativeModal {
     switch(this._narrative.game) {
       case 'questions':
         modal = this.modalCtrl.create(QuestionsGame, { narrative: this._narrative});
+        break;
+      case 'code':
+        modal = this.modalCtrl.create(CodeGame, { narrative: this._narrative});
+        break;
+      case 'riddle':
+        modal = this.modalCtrl.create(RiddleGame, { narrative: this._narrative});
+        break;
+      case 'hexagons':
+        modal = this.modalCtrl.create(HexagonsGame, { narrative: this._narrative});
+        break;
+      case 'walkapath':
+        modal = this.modalCtrl.create(WalkAPathGame, { narrative: this._narrative});
+        break;
     }
 
-    this.closeModal();
-    if(modal) modal.present();
+    if(modal) {
+      modal.present();
+      modal.onDidDismiss(() => {
+        this.closeModal();
+
+        if(this._narrative.afterNarrativeFile) {
+          let nextNarrative = this.modalCtrl.create(NarrativeModal, {narrativeFile: this._narrative.afterNarrativeFile});
+          nextNarrative.present();
+        }
+      });
+    } else {
+      this.closeModal();
+    }
   }
 }

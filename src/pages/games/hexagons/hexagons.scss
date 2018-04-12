@@ -1,0 +1,65 @@
+$illustration-height: 45vh;
+$half-circle-height: 10vh;
+
+hexagons-game {
+  [ion-fixed], .ion-fixed {
+    width: 100vw;
+    height: 100vh;
+
+    > section {
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      .illustration {
+        height: $illustration-height;
+        background: lighten(color($colors, primary, base), 50);
+        .icon {
+          width: 50vw;
+          height: 50vw;
+          background: url('../assets/imgs/compassbackground.png');
+          background-size: cover;
+          position: absolute;
+          left: 25vw;
+          top: 5vh;
+
+          &.opacity {
+            opacity: 0.5;
+          }
+        }
+        .half__circle {
+          background: url('../assets/imgs/narrativeBackground.png');
+          height: $half-circle-height;
+          margin-top: $illustration-height - $half-circle-height;
+          position: absolute;
+          background-size: cover;
+          width: 100vw;
+          z-index: 0;
+        }
+      }
+    }
+
+    h1 {
+      color: color($colors, primary, base);
+    }
+
+    h2 {
+      max-width: 90%;
+      margin: 0.5em auto;
+      color: rgb(139, 139, 139);
+    }
+    p {
+      font-size: 1.4em;
+    }
+    text-align: center;
+
+    .instructions {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100vh;
+      background: lighten(color($colors, primary, base), 50);
+    }
+
+  }
+}

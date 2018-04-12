@@ -1,0 +1,9 @@
+{
+  "name": "Kai de kikker",
+  "character": "assets/imgs/characters/ranger_frog.png",
+  "marker": "assets/imgs/pois/hexagons.png",
+  "narrative": [
+    "Nu jullie al waardige rangers zijn gebleken denk ik dat het tijd is voor jullie laatste ranger test."
+  ],
+  "buttonText": "Ga naar locatie"
+}

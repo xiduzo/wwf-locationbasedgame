@@ -1,0 +1,9 @@
+{
+  "name": "Kai de kikker",
+  "character": "assets/imgs/characters/ranger_frog.png",
+  "marker": "assets/imgs/pois/search.png",
+  "narrative": [
+    "Jullie hebbem hem gevonden! Laten we gelijk jullie richtingsgevoel testen op de volgende trainingslocatie."
+  ],
+  "buttonText": "Ga naar locatie"
+}

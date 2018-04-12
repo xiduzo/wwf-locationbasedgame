@@ -1,0 +1,59 @@
+<ion-content>
+  <div ion-fixed>
+    <section *ngIf="_state === 0">
+      <section class="illustration">
+        <div class="icon"></div>
+        <div class="half__circle"></div>
+      </section>
+      <section class="text" padding>
+        <h1>
+          Schat zoeken
+        </h1>
+        <article>
+          <p>
+            Bij dit spel testen we jullie geheugen. Jullie krijgen instructies hoe je moet lopen.
+            Onthoud de instructies goed, want ze verdwijnen zodat je gaat!
+          </p>
+        </article>
+        <button ion-button large round block (click)="_state = 1">
+          Start spel
+        </button>
+      </section>
+    </section>
+    <section *ngIf="_state === 1">
+      <section *ngIf="_canReadDirections" class="instructions">
+        <h1>
+          Instructies
+        </h1>
+        <article>
+          <p>
+            Ga twee keer naar links, <br>
+            Vervolgens tweek keer naar rechts,
+          </p>
+          <p>
+            Dan ga je die keer naar links, <br>
+            vervolgens drie keer naar rechts,
+          </p>
+          <p>
+            Dan ga je een keer naar links, <br>
+            een keer naar rechts,
+          </p>
+          <p>
+            Als laatste ga je nog een keer naar links
+          </p>
+        </article>
+      </section>
+      <section *ngIf="!_canReadDirections" class="instructions">
+        <h1>
+          Je bent onderweg
+        </h1>
+        <h2>
+          Als je de route bent vergeten, keer dan terug naar het beginpunt
+        </h2>
+      </section>
+    </section>
+    <section *ngIf="_state === 2">
+      gefeliciteerd
+    </section>
+  </div>
+</ion-content>

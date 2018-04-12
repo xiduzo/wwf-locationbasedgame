@@ -149,7 +149,7 @@ export class QuestionsGame {
   }
 
   restart() {
-    this._activeQuestion = 0;
+    this._activeQuestion = 1;
     this._correctAnswers = 0;
   }
 }

@@ -1,6 +1,10 @@
 {
-  "name": "Statue",
-  "image": "assets/imgs/characters/ranger_frog.png",
+  "name": "Kai de kikker",
+  "character": "assets/imgs/characters/ranger_frog.png",
   "marker": "assets/imgs/pois/statue.png",
-  "narrative": "Shove bum in owner's face like camera lens slap kitten brother with paw, eat the fat cats food."
+  "narrative": [
+    "Dit is het verzamelpunt van onze verkenners, ik ga je een geheim signaal leren om hun aandacht te trekken"
+  ],
+  "buttonText": "Start spel",
+  "game": "walkapath"
 }

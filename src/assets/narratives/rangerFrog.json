@@ -1,6 +1,11 @@
 {
-  "name": "Ranger frog",
-  "image": "assets/imgs/characters/ranger_frog.png",
+  "name": "Kai de kikker",
+  "character": "assets/imgs/characters/ranger_frog.png",
   "marker": "assets/imgs/pois/frog.png",
-  "narrative": "Shove bum in owner's face like camera lens slap kitten brother with paw, eat the fat cats food."
+  "narrative": [
+    "Hee! Heeft Hoofdranger Hops jullie gestuurd? Mijn naam is Kai de Kikker en ik ken deze plek als geen ander, Ik zal jullie helpen tijdens je tocht.",
+    "Maar voordat we beginnen heb ik eerst jullie hulp nodig. Ik heb gisteravond mijn kompas laten liggen terwijl ik eten zocht in het bos.",
+    "Een echte ranger kan niet zonder een kompas. Helpen jullie mijn kompas terug te zoeken?"
+  ],
+  "buttonText": "Volg kai"
 }

@@ -1,6 +1,11 @@
 {
-  "name": "Hexagons",
-  "image": "assets/imgs/characters/ranger_frog.png",
+  "name": "Kai de kikker",
+  "character": "assets/imgs/characters/ranger_frog.png",
   "marker": "assets/imgs/pois/hexagons.png",
-  "narrative": "Shove bum in owner's face like camera lens slap kitten brother with paw, eat the fat cats food."
+  "narrative": [
+    "Wat spannend! Een verborgen schat! Hebben jullie een goed genoeg geheugen om hem te vinden?"
+  ],
+  "buttonText": "Start spel",
+  "game": "hexagons",
+  "afterNarrativeFile": "hexagons2.json"
 }

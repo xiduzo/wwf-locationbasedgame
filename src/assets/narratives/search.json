@@ -1,6 +1,11 @@
 {
-  "name": "Search",
-  "image": "assets/imgs/characters/ranger_frog.png",
+  "name": "Kai de kikker",
+  "character": "assets/imgs/characters/ranger_frog.png",
   "marker": "assets/imgs/pois/search.png",
-  "narrative": "Shove bum in owner's face like camera lens slap kitten brother with paw, eat the fat cats food."
+  "narrative": [
+    "Dit is de plek waar je mijn kompas kunt vinden, als jullie mijn raadsel oplossen weten jullie waar hij ligt."
+  ],
+  "buttonText": "Start spel",
+  "game": "riddle",
+  "afterNarrativeFile": "search2.json"
 }
