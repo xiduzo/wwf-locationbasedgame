@@ -21,7 +21,14 @@ export class RiddleGame {
   }
 
   validatePassword() {
-    if(this._answer === 'vogelhuisje') {
+    const answers = [
+      "vogelhuisje",
+      "vogelhuis",
+      "vogel huisje",
+      "vogel huis",
+      "voliere"
+    ];
+    if(answers.find(word => word == this._answer.toLowerCase())) {
       this._state = 2;
     }
   }
