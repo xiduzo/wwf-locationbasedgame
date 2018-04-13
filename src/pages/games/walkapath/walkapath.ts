@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { NavParams, NavController } from 'ionic-angular';
-import { Geolocation } from '@ionic-native/geolocation';
+import { ViewController } from 'ionic-angular';
+
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js';
-import { Constants } from '../../../lib/constants'
-import  'rxjs/add/operator/filter';
 
-
+import { Geolocation } from '@ionic-native/geolocation';
 import { GeolocationService } from '../../../lib/geolocation';
+
+import { Constants } from '../../../lib/constants';
+
 
 @Component({
   selector: 'walk-a-path',
@@ -14,124 +15,130 @@ import { GeolocationService } from '../../../lib/geolocation';
 })
 export class WalkAPathGame {
 
-  // Besic requirements for location
-  private _map:any;
-  private _locationMarker:any;
-  private SUBSCRIPTION;
+  public _map:any;
+  public _myLocation:any;
 
-  private _coords:any;
-  private _pathToWalk:any = {
-    type: 'FeatureCollection',
-    features: [
-      {
-        type: 'Feature',
-        geometry: {
-          type: 'LineString',
-          coordinates: [
-            // longitude , latitude
-            [4.856323433637954, 52.356121652592265],
-            [4.856248331785537, 52.35599387562989],
-            [4.856060577154494, 52.356077422147116],
-            [4.856060577154494, 52.356077422147116],
-            [4.856114221334792, 52.35619209358025],
-          ]
-        }
-      }
-    ]
-  };
-  private _walkedPath:any = {
-    type: 'FeatureCollection',
-    features: [{type: 'Feature', geometry: {type: 'LineString',coordinates: []}}]
-  };
-
+  private _markers:any = [
+    {
+      name: '1',
+      coords: { latitude: 52.344432202092364, longitude: 4.916781500663774 },
+      geoCoords: [4.916781500663774, 52.344432202092364]
+    },
+    {
+      name: '2',
+      coords: { latitude: 52.34444039507716, longitude: 4.917143598880784 },
+      geoCoords: [4.917143598880784, 52.34444039507716]
+    },
+  ];
+  private _activeMarkerNumber:number = 0
+  private _activeMarker:any = this._markers[this._activeMarkerNumber];
 
   constructor(
-    public navCtrl: NavController,
-    protected geolocation: Geolocation,
-    private params: NavParams,
-    private geolocationService: GeolocationService
+    private geolocation: Geolocation,
+    private geolocationService: GeolocationService,
+    private viewCtrl: ViewController
   ) {
   }
 
   ngOnInit() {
-    this._coords = this.params.get('coords');
-  }
-
-  ionViewWillEnter() {
-    this.SUBSCRIPTION = this.geolocation.watchPosition()
-    .filter((p) => p.coords !== undefined) //Filter Out Errors
-    .subscribe(position => {
-      if(this._locationMarker) { this._locationMarker.remove(); }
-
-      var el = document.createElement('div');
-      el.className = 'position__marker';
-      this._locationMarker = new mapboxgl.Marker(el)
-      .setLngLat([position.coords.longitude, position.coords.latitude])
-      .addTo(this._map);
-
-      this.moveToMyLocation();
+    this.geolocation.getCurrentPosition().then((position) => {
+      this._myLocation = position.coords;
+      this.displayMap();
+      this.addControlsToMap();
+      this.addMarkerToMap(this._activeMarker);
     });
   }
 
-  ionViewDidLoad() {
+  displayMap() {
     mapboxgl.accessToken = Constants.ACCESS_TOKEN;
     let mapStyle:any = Constants.MAP_STYLE;
+    const mapZoom:number = 18;
     mapStyle.sources.overlay = {
       type: "image",
-      url: "http://localhost:8100/assets/imgs/maps/vondel.png",
+      url: "",
+      // url: "http://localhost:8100/assets/imgs/maps/vondel.png",
       coordinates: [
-        [4.85530151200328, 52.36360251297369],
-        [4.882552755594588, 52.36360251297369],
-        [4.882552755594588, 52.35187368967347],
-        [4.85530151200328, 52.35187368967347]
+        [4.85530151200328, 52.36360251297369],[4.882552755594588, 52.36360251297369],
+        [4.882552755594588, 52.35187368967347],[4.85530151200328, 52.35187368967347]
       ]
     };
     this._map = new mapboxgl.Map({
       style: mapStyle,
-      center: [this._coords.longitude, this._coords.latitude],
-      zoom: 18,
-      maxZoom: 20,
+      center: [this._myLocation.longitude, this._myLocation.latitude],
+      zoom: mapZoom,
+      minZoom: mapZoom,
+      maxZoom: mapZoom,
       container: 'walkapathmap'
-    });
-
-    this._map.on('load', () => {
-      this.addPathToMap("routeToFollow", this._pathToWalk, '#888');
-      this.addPathToMap("walkedPath", this._walkedPath, '#001aff');
     })
-  }
-
-  addPathToMap(id, path, color) {
-    this._map.addSource(id, { type: 'geojson', data: path });
-    this._map.addLayer({
-      id: id,
-      type: "line",
-      source: id,
-      "paint": { "line-color": color, "line-width": 8 }
+    .on('move', (e) => {
+      this.setMarkerOpacity();
     });
   }
 
-  moveToMyLocation() {
-    this.geolocation.getCurrentPosition().then((resp) => {
-      this._map.flyTo({center: [resp.coords.longitude, resp.coords.latitude]});
-
-      // Add coords to my walked path
-      this._walkedPath.features[0].geometry.coordinates.push([resp.coords.longitude, resp.coords.latitude]);
-
-      // Update the walked path
-      if(this._map.getSource('walkedPath')) {
-        this._map.getSource('walkedPath').setData(this._walkedPath);
-      }
-
-      const closeToPoint = this.geolocationService.closeToPoint(
-        {latitude: resp.coords.latitude, longitude: resp.coords.longitude},
-        {latitude: 52.35619209358025, longitude: 4.856114221334792},
-        5
-      );
-
-      console.log(closeToPoint);
-
-    }).catch((error) => {
-      console.log('Error getting location', error)
-    });
+  closeModal() {
+    this.viewCtrl.dismiss();
   }
+
+  addControlsToMap() {
+    const geolocate = new mapboxgl.GeolocateControl({
+        positionOptions: { enableHighAccuracy: true },
+        trackUserLocation: true
+    })
+    .on('geolocate', (e) => {
+      this._myLocation = e.coords;
+      this.setMarkerOpacity();
+      this.isMarkerInRange();
+    });
+
+    this._map.addControl(geolocate, 'bottom-right');
+  }
+
+  addMarkerToMap(marker) {
+    var el = document.createElement('div');
+    el.className = 'opacity__100 marker marker__'+marker.name;
+    new mapboxgl.Marker(el)
+    .setLngLat(marker.geoCoords)
+    .addTo(this._map);
+  }
+
+  setMarkerOpacity() {
+    // If the user is within 5 meter just show the marker
+    let mapBearing = this._map.getBearing();
+    const element = document.querySelectorAll('.marker__'+this._activeMarker.name)[0];
+    const range = this.geolocationService.distanceToPoint(this._myLocation, this._activeMarker.coords);
+
+
+    const bearing = this.geolocationService.getBearing(this._myLocation.latitude, this._myLocation.longitude, this._activeMarker.coords.latitude, this._activeMarker.coords.longitude);
+    if(mapBearing < 0) mapBearing = 180 + (180+mapBearing);
+
+    if((bearing-10) < mapBearing && (bearing+10) > mapBearing) {
+      element.classList.add('opacity__0');
+    } else {
+      if(element.classList.contains('opacity__0')) element.classList.remove('opacity__0');
+    }
+
+  }
+
+  isMarkerInRange() {
+    const inRange = this.geolocationService.closeToPoint(this._myLocation, this._activeMarker.coords, 5);
+
+    if(inRange) {
+      const element = document.querySelectorAll('.marker__'+this._activeMarker.name)[0];
+      if(element) {
+        element.classList.add('opacity__0');
+        element.classList.remove('opacity__100');
+        element.classList.add('done');
+
+        if(this._markers[this._activeMarkerNumber + 1]) {
+          this._activeMarkerNumber++;
+          this._activeMarker = this._markers[this._activeMarkerNumber];
+          this.addMarkerToMap(this._activeMarker);
+        } else {
+          this.closeModal();
+          console.log('done');
+        }
+      };
+    }
+  }
+
 }

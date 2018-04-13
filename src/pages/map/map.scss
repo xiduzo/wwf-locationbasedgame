@@ -14,7 +14,7 @@ $map-button-size: 40px;
 
 .mapboxgl-user-location-dot.mapboxgl-marker {
   background-color: transparent;
-  background-image: url('../assets/imgs/panda.png');
+  background-image: url('../assets/imgs/userpointer.png');
   background-size: cover;
   width: $location-marker-size;
   height: $location-marker-size;
@@ -43,6 +43,25 @@ button.mapboxgl-ctrl-icon {
     &__hexagons {background-image: url('../assets/imgs/pois/hexagons.png');}
     &__castle {background-image: url('../assets/imgs/pois/castle.png');}
   }
+
+  &.marker {
+    width: 25px;
+    height: 25px;
+    background: #FE7474;
+    border-radius: 50%;
+
+    &.done {
+      background: #8BC34A;
+    }
+
+    &.opacity {
+      &__100 { opacity: 0;}
+      &__75 { opacity: 0.25;}
+      &__50 { opacity: 0.5;}
+      &__25 { opacity: 0.75;}
+      &__0 { opacity: 1;}
+    }
+  }
 }
 
 .compass {
@@ -67,10 +86,10 @@ button.mapboxgl-ctrl-icon {
     height: 25vw;
   }
   .compass__arrow {
-    width: 5vw;
-    height: 5vw;
-    left: 10vw;
-    bottom: 10vw;
+    width: 10vw;
+    height: 10vw;
+    left: 7.5vw;
+    bottom: 2.5vw;
     background-image: url('../assets/imgs/compasspointer.png');
   }
   .compass__distance {

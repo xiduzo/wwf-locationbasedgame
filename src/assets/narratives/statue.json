@@ -6,5 +6,6 @@
     "Dit is het verzamelpunt van onze verkenners, ik ga je een geheim signaal leren om hun aandacht te trekken"
   ],
   "buttonText": "Start spel",
-  "game": "walkapath"
+  "game": "walkapath",
+  "afterNarrativeFile": "statue2.json"
 }

@@ -79,7 +79,7 @@ export class NarrativeModal {
   swipe(direction:string) {
     if(direction === 'left' && this._activeNarrative + 1 < this._narrative.narrative.length) {
       this._activeNarrative++;
-    } else if(this._activeNarrative > 0) {
+    } else if(this._activeNarrative > 0 && direction === 'right') {
       this._activeNarrative--;
     }
   }

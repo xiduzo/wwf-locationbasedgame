@@ -1,0 +1,10 @@
+{
+  "name": "Verkenner Veer",
+  "character": "assets/imgs/characters/parkeet.png",
+  "marker": "assets/imgs/pois/statue.png",
+  "narrative": [
+    "Ik zag jullie signaal! Ik ben Verkenner Veer en ik ben een van de vele verkenners in het Vondelpark",
+    "Tijdens mijn verkenning zag ik veel rangeractiviteit bij het zwembad. Het zwembad is namelijk een ware kennispool voor onze rangers."
+  ],
+  "buttonText": "Ga naar locatie"
+}

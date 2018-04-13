@@ -57,7 +57,7 @@ export class MapPage {
   displayMap() {
     mapboxgl.accessToken = Constants.ACCESS_TOKEN;
     let mapStyle:any = Constants.MAP_STYLE;
-    const mapZoom:number = 20;
+    const mapZoom:number = 19;
     mapStyle.sources.overlay = {
       type: "image",
       url: "",
@@ -69,12 +69,13 @@ export class MapPage {
     };
     this._map = new mapboxgl.Map({
       style: mapStyle,
-      center: [4.86, 52.356],
+      // center: [4.86, 52.356],
+      center: [4.916087, 52.346300],
       zoom: mapZoom,
-      minZoom: mapZoom,
-      maxZoom: mapZoom,
+      // minZoom: mapZoom  - 1,
+      // maxZoom: mapZoom + 1,
       container: 'modalmap',
-      pitch: 60
+      pitch: 40
     })
     .on('move', (e) => {
       this.updateNavigator(this._myLocation);
@@ -92,7 +93,7 @@ export class MapPage {
     })
     .on('geolocate', (e) => {
       if(vm._triggerOnPoi) vm.checkPoiRange(e.coords);
-      if(vm._trackUserPath) vm.updatePathOnMap(e.coords);
+      // if(vm._trackUserPath) vm.updatePathOnMap(e.coords);
 
       this._myLocation = e.coords;
       vm.updateNavigator(e.coords);
@@ -185,6 +186,7 @@ export class MapPage {
           let modal = this.modalCtrl.create(NarrativeModal, {narrativeFile: marker.properties.narrativeFile});
           modal.present();
           modal.onDidDismiss(() => {
+            this._map.resize();
             if(this._trackUserPath && marker.properties.poisToActivate) {
                 marker.properties.poisToActivate.forEach(poiToActivate => {
                   const poi = this._geojson.features.find(feature => feature.properties.id === poiToActivate);

@@ -1,5 +1,96 @@
 export class Constants {
    public static ACCESS_TOKEN = 'pk.eyJ1IjoieGlkdXpvIiwiYSI6ImNqZHU3bnBncjJpNDIyeHFvMWh6NjA2amoifQ.SzgCLkqb9wUmQbIpdNhwuA';
+   public static HVA_ROUTE = {
+     type: 'FeatureCollection',
+     features: [
+       {
+         type: 'Feature',
+         geometry: { type: 'Point', coordinates: [4.916087, 52.346300] },
+         properties: {
+           id: 'headmaster',
+           title: 'Headmaster frog',
+           coords: { longitude: 4.916087, latitude: 52.346300, },
+           active: true,
+           markerLabel: 'dome',
+           narrativeFile: 'chiefFrog.json',
+           poisToActivate: ['frog'],
+           range: 20
+         }
+       },
+       {
+         type: 'Feature',
+         geometry: { type: 'Point', coordinates: [4.915027, 52.346160] },
+         properties: {
+           id: 'frog',
+           title: 'Ranger frog',
+           coords: {longitude: 4.915027, latitude: 52.346160},
+           active: false,
+           markerLabel: 'frog',
+           narrativeFile: 'rangerFrog.json',
+           poisToActivate: ['search'],
+           range: 10,
+           sound: "assets/sounds/frog.mp3",
+           soundRange: 100
+         }
+       },
+       {
+         type: 'Feature',
+         geometry: { type: 'Point', coordinates: [4.915040, 52.345641] },
+         properties: {
+           id: 'search',
+           title: 'Search compass',
+           coords: {longitude: 4.915040, latitude: 52.345641},
+           active: false,
+           markerLabel: 'search',
+           narrativeFile: 'search.json',
+           poisToActivate: ['statue'],
+           range: 20
+         }
+       },
+       {
+         type: 'Feature',
+         geometry: { type: 'Point', coordinates: [4.916877, 52.344689] },
+         properties: {
+           id: 'statue',
+           title: 'Call the bird',
+           coords: {longitude: 4.916877, latitude: 52.344689},
+           active: false,
+           markerLabel: 'statue',
+           narrativeFile: 'statue.json',
+           poisToActivate: ['stones'],
+           range: 30
+         }
+       },
+       {
+         type: 'Feature',
+         geometry: { type: 'Point', coordinates: [4.917676, 52.344653] },
+         properties: {
+           id: 'stones',
+           title: 'Are you a ranger',
+           coords: {longitude: 4.917676, latitude: 52.344653},
+           active: false,
+           markerLabel: 'stones',
+           narrativeFile: 'stones.json',
+           poisToActivate: ['hexagons'],
+           range: 10
+         }
+       },
+       {
+         type: 'Feature',
+         geometry: { type: 'Point', coordinates: [4.917393, 52.345617] },
+         properties: {
+           id: 'hexagons',
+           title: 'Find the path',
+           coords: {longitude: 4.917393, latitude: 52.345617},
+           active: false,
+           markerLabel: 'hexagons',
+           narrativeFile: 'hexagons.json',
+           poisToActivate: ['castle'],
+           range: 5
+         }
+       },
+     ]
+   };
    public static VONDELPARK_ROUTE = {
      type: 'FeatureCollection',
      features: [
