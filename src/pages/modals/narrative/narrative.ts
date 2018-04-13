@@ -39,7 +39,6 @@ export class NarrativeModal {
 
   ionViewWillEnter() {
     this._gameType = this.params.get('gameType');
-    console.log(this._gameType)
     this.getJSON(this.params.get('narrativeFile')).subscribe(data => {
       this._narrative = data;
     });
@@ -117,7 +116,7 @@ export class NarrativeModal {
         this.closeModal();
 
         if(this._narrative.afterNarrativeFile) {
-          let nextNarrative = this.modalCtrl.create(NarrativeModal, {narrativeFile: this._narrative.afterNarrativeFile});
+          let nextNarrative = this.modalCtrl.create(NarrativeModal, {narrativeFile: this._narrative.afterNarrativeFile, gameType: this._gameType});
           nextNarrative.present();
         }
       });

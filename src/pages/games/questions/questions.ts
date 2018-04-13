@@ -10,63 +10,63 @@ export class QuestionsGame {
   public _questions = [
     {
       index: 1,
-      question: 'Flee in terror at cucumber discovered on floor love to',
+      question: 'Weten jullie nog de naam van dit park?',
       answers: [
         {
-          text: 'play with owner\'s',
-          correct: true
+          text: 'westerpark',
+          correct: false
         },
         {
-          text: 'hair tie for scream at teh bath',
-          correct: false,
+          text: 'Vondelpark',
+          correct: true,
         },
         {
-          text: 'and dont wait for the storm to',
+          text: 'Wandelpark',
           correct: false
         }
       ],
-      hintCorrect: 'stap een steen naar links',
-      hintWrong: 'stap drie stenen naar links'
+      hintCorrect: 'Wisten jullie dat er in dit park een hele boel dieren leven? Muizen, eekhoorns, kikkers en een heleboel verschillende vogels en vissen. Kijk eens rond! Stap twee stenen naar links.',
+      hintWrong: 'Stap drie stenen naar links'
     },
     {
       index: 2,
-      question: 'Pooping rainbow while flying in a toasted bread costume',
+      question: 'Weten jullie nog de naam van de Hoofdranger?',
       answers: [
         {
-          text: 'hair tie for scream at teh bath',
-          correct: false,
+          text: 'Hops',
+          correct: true,
         },
         {
-          text: 'play with owner\'s',
-          correct: true
+          text: 'Bob',
+          correct: false
         },
         {
-          text: 'and dont wait for the storm to',
+          text: 'Kai',
           correct: false
         }
       ],
-      hintCorrect: 'stap vier stenen naar rechts',
-      hintWrong: 'stap 2 stenen naar rechts'
+      hintCorrect: 'Wisten jullie dat het vondelpark de belangrijkste locatie van de kikker- en paddentrek is in Amsterdam!. Stap vier stenen naar rechts',
+      hintWrong: 'Stap 2 stenen naar rechts'
     },
     {
       index: 3,
-      question: 'be the most annoying cat that you can',
+      question: 'In welke afvalbak gooi je kauwgom weg?',
       answers: [
         {
-          text: 'and dont wait for the storm to',
+          text: 'groentebak',
           correct: false
         },
         {
-          text: 'play with owner\'s',
-          correct: true
+          text: 'glasbak',
+          correct: false
         },
         {
-          text: 'hair tie for scream at teh bath',
-          correct: false,
+          text: 'restafval',
+          correct: true,
         }
       ],
-      hintCorrect: 'stap 2 stenen naar rechts',
-      hintWrong: 'stap 3 stenen naar links'
+      hintCorrect: 'Wisten jullie dat afval gescheiden wordt in verschillende bakken zoals: plastic, papier, glas, groen en restafval! Stap 3 stenen naar links.',
+      hintWrong: 'Stap 3 stenen naar links'
     }
   ];
   public _activeQuestion:number = 1;
@@ -91,7 +91,7 @@ export class QuestionsGame {
     let message:string;
     if(correct) {
       this._correctAnswers++;
-      title = 'Goed gedaan!'
+      title = 'Dat antwoord is goed!'
       message = question.hintCorrect;
     } else {
       title = 'Oei, dat is niet waar!';
@@ -132,7 +132,7 @@ export class QuestionsGame {
     });
     let finished = this.alertCtrl.create({
       title: 'Wow, dat is helemaal goed!',
-      message: 'Je ben al een echte ranger in mijn ogen!',
+      message: 'Jullie zijn al echter rangers aan het worden!',
       buttons: [{
         text: 'Volgende opdracht',
         handler: () => {
@@ -151,5 +151,6 @@ export class QuestionsGame {
   restart() {
     this._activeQuestion = 1;
     this._correctAnswers = 0;
+    this._selectedStone = 0;
   }
 }

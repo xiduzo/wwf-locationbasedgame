@@ -21,6 +21,7 @@ import { MapPage } from '../pages/map/map';
 
 // Models
 import { IntroductionModal } from '../pages/modals/introduction/introduction';
+import { OutroModal } from '../pages/modals/outro/outro';
 import { NarrativeModal } from '../pages/modals/narrative/narrative';
 
 // Games
@@ -43,6 +44,7 @@ import { SoundTest } from '../pages/tests/sound/sound';
     HomePage,
     MapPage,
     IntroductionModal,
+    OutroModal,
     NarrativeModal,
     WalkAPathGame,
     MakeAPictureGame,
@@ -63,6 +65,7 @@ import { SoundTest } from '../pages/tests/sound/sound';
     HomePage,
     MapPage,
     IntroductionModal,
+    OutroModal,
     NarrativeModal,
     WalkAPathGame,
     MakeAPictureGame,

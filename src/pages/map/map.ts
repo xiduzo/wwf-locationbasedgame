@@ -8,11 +8,10 @@ import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GeolocationService } from '../../lib/geolocation';
 
+import { OutroModal } from '../modals/outro/outro';
 import { NarrativeModal } from '../modals/narrative/narrative';
 
 import { NativeAudio } from '@ionic-native/native-audio';
-
-import { DecimalPipe } from '@angular/common';
 
 
 @Component({
@@ -34,6 +33,7 @@ export class MapPage {
   private _triggerOnPoi:boolean = false;
   private _distanceToPoi:number = 0;
   private _activePoi:any;
+  private _gamesCompleted:number = 0;
 
   constructor(
     private modalCtrl: ModalController,
@@ -92,6 +92,7 @@ export class MapPage {
         trackUserLocation: true
     })
     .on('geolocate', (e) => {
+      console.log(true);
       if(vm._triggerOnPoi) vm.checkPoiRange(e.coords);
       // if(vm._trackUserPath) vm.updatePathOnMap(e.coords);
 
@@ -105,7 +106,6 @@ export class MapPage {
   addPointsOfInterest(geojson) {
     geojson.features.forEach(marker => {
       if(marker.properties.active !== true && this._trackUserPath) return;
-      console.log(marker.properties.inFreeRoam)
       if(!this._trackUserPath && !marker.properties.inFreeRoam) return;
       if(!this._trackUserPath) marker.properties.active = true;
       var el = document.createElement('div');
@@ -189,6 +189,13 @@ export class MapPage {
           modal.present();
           modal.onDidDismiss(() => {
             this._map.resize();
+            this._gamesCompleted++;
+            const finishModal = this.modalCtrl.create(OutroModal);
+            if(this._trackUserPath && this._gamesCompleted === 6) {
+              finishModal.present();
+            } else if(!this._trackUserPath && this._gamesCompleted == 4) {
+              finishModal.present();
+            }
             if(this._trackUserPath && marker.properties.poisToActivate) {
                 marker.properties.poisToActivate.forEach(poiToActivate => {
                   const poi = this._geojson.features.find(feature => feature.properties.id === poiToActivate);

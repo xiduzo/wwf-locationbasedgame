@@ -42,7 +42,7 @@ export class HexagonsGame {
   }
 
   ionViewWillDissapear() {
-    this._watch.unsubscribe();
+    // this._watch.unsubscribe();
   }
 
   validateLocation(position) {

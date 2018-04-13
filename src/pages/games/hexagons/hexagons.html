@@ -52,8 +52,22 @@
         </h2>
       </section>
     </section>
-    <section *ngIf="_state === 2">
-      gefeliciteerd
+    <section *ngIf="_state === 2" class="final" padding>
+      <div padding>
+        <img src="../assets/imgs/characters/ranger_frog.png" alt="">
+      </div>
+      <h1>
+        Gefelicteerd!
+      </h1>
+      <article>
+        <p>
+          Jullie hebben de schat locatie gevonden!
+          Hoofdranger Hop is op de hoogte gesteld van deze locatie!
+        </p>
+      </article>
+      <button ion-button large rounded block (click)="closeModal()">
+        Sluit
+      </button>
     </section>
   </div>
 </ion-content>

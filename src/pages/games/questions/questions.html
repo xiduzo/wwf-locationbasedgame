@@ -4,9 +4,9 @@
       <img [src]="_narrative.character" alt="">
     </section>
     <section *ngIf="_activeQuestion <= _questions.length">
-      <div>
+      <h1>
         Vraag {{ _activeQuestion }} / {{ _questions.length }}
-      </div>
+      </h1>
       <div *ngFor="let question of _questions">
         <div *ngIf="_activeQuestion === question.index">
           {{ question.question }}
@@ -19,9 +19,9 @@
       </div>
     </section>
     <section *ngIf="_activeQuestion  > _questions.length">
-      <h1>
+      <h3>
         Op welke steen ben je geeindigd? Geteld van links naar rechts.
-      </h1>
+      </h3>
       <section>
         <span *ngFor="let stone of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]">
           <button ion-button round (click)="selectStone(stone)" [ngClass]="{
