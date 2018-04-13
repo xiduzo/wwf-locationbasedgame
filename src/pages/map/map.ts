@@ -105,6 +105,8 @@ export class MapPage {
   addPointsOfInterest(geojson) {
     geojson.features.forEach(marker => {
       if(marker.properties.active !== true && this._trackUserPath) return;
+      console.log(marker.properties.inFreeRoam)
+      if(!this._trackUserPath && !marker.properties.inFreeRoam) return;
       if(!this._trackUserPath) marker.properties.active = true;
       var el = document.createElement('div');
       el.className = 'poi__'+marker.properties.markerLabel;
@@ -183,7 +185,7 @@ export class MapPage {
 
         if(closeToPoint && marker.properties.active) {
           marker.properties.active = false;
-          let modal = this.modalCtrl.create(NarrativeModal, {narrativeFile: marker.properties.narrativeFile});
+          let modal = this.modalCtrl.create(NarrativeModal, {narrativeFile: marker.properties.narrativeFile, gameType: this._trackUserPath ? 1 : 2});
           modal.present();
           modal.onDidDismiss(() => {
             this._map.resize();

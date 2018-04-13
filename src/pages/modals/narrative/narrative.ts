@@ -25,6 +25,7 @@ export class NarrativeModal {
   public _narrative:any;
   public _buttonAvailable:boolean = false;
   public _activeNarrative:number = 0;
+  public _gameType:number;
 
   constructor(
     private modalCtrl: ModalController,
@@ -37,6 +38,8 @@ export class NarrativeModal {
   }
 
   ionViewWillEnter() {
+    this._gameType = this.params.get('gameType');
+    console.log(this._gameType)
     this.getJSON(this.params.get('narrativeFile')).subscribe(data => {
       this._narrative = data;
     });

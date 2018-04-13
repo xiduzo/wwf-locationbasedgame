@@ -52,6 +52,7 @@ button.mapboxgl-ctrl-icon {
 
     &.done {
       background: #8BC34A;
+      z-index: 9;
     }
 
     &.opacity {

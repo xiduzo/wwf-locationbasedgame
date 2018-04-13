@@ -5,5 +5,9 @@
   "narrative": [
     "Wow, wat zijn jullie slim! Als beloning zal ik jullie de locatie van een verborgen schat weergeven."
   ],
+  "narrativeFree": [
+    "Wow, wat zijn jullie slim! Goede kennis over de natuur en zijn inwoners komt goed van pas als ranger."
+  ],
+  "buttonFree": "terug naar kaart",
   "buttonText": "Ga naar locatie"
 }

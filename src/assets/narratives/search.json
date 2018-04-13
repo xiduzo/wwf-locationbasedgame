@@ -5,7 +5,11 @@
   "narrative": [
     "Dit is de plek waar je mijn kompas kunt vinden, als jullie mijn raadsel oplossen weten jullie waar hij ligt."
   ],
+  "narrativeFree": [
+    "Hey mijn naam is Kai de Kikker en ik heb mijn kompas verstopt in dit bos. Als jullie mijn raadsel kunnen oplossen weet je waar hij ligt!"
+  ],
   "buttonText": "Start spel",
+  "buttonFree": "Start spel",
   "game": "riddle",
   "afterNarrativeFile": "search2.json"
 }

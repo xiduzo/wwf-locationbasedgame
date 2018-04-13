@@ -21,13 +21,28 @@ export class WalkAPathGame {
   private _markers:any = [
     {
       name: '1',
-      coords: { latitude: 52.344432202092364, longitude: 4.916781500663774 },
-      geoCoords: [4.916781500663774, 52.344432202092364]
+      coords: { latitude: 52.35728298035498, longitude: 4.868045762863176 },
+      geoCoords: [4.868045762863176, 52.35728298035498]
     },
     {
       name: '2',
-      coords: { latitude: 52.34444039507716, longitude: 4.917143598880784 },
-      geoCoords: [4.917143598880784, 52.34444039507716]
+      coords: { latitude: 52.35728298035498, longitude: 4.868303254928605 },
+      geoCoords: [4.868303254928605, 52.35728298035498]
+    },
+    {
+      name: '3',
+      coords: { latitude: 52.35706984780121, longitude: 4.8680511272812055 },
+      geoCoords: [4.8680511272812055, 52.35706984780121]
+    },
+    {
+      name: '4',
+      coords: { latitude: 52.35729688026843, longitude: 4.867766813125627 },
+      geoCoords: [4.867766813125627, 52.35729688026843]
+    },
+    {
+      name: '5',
+      coords: { latitude: 52.357452095671675, longitude: 4.868032351818101 },
+      geoCoords: [4.868032351818101, 52.357452095671675]
     },
   ];
   private _activeMarkerNumber:number = 0
@@ -72,6 +87,7 @@ export class WalkAPathGame {
     })
     .on('move', (e) => {
       this.setMarkerOpacity();
+      this.setCompassRotation();
     });
   }
 
@@ -114,9 +130,16 @@ export class WalkAPathGame {
     if((bearing-10) < mapBearing && (bearing+10) > mapBearing) {
       element.classList.add('opacity__0');
     } else {
+      if(!element) return;
       if(element.classList.contains('opacity__0')) element.classList.remove('opacity__0');
     }
+  }
 
+  setCompassRotation() {
+    const bearing = this._map.getBearing();
+
+    const compass:any = document.querySelectorAll('.compass__walkapath')[0];
+    if(compass) compass.style.transform = 'rotate('+Math.round(bearing)+'deg)';
   }
 
   isMarkerInRange() {

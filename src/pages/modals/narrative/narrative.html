@@ -12,18 +12,35 @@
         <h1>
           {{ _narrative.name }}
         </h1>
-        <div padding class="narration__item" *ngFor="let narrative of _narrative.narrative; let i = index" [ngClass]="{
-          'inactive': _activeNarrative !== i}" (swipeLeft)="swipe('left')" (swipeRight)="swipe('right')" [innerHTML]="narrative">
-        </div>
-        <section class="actions">
-          <div *ngIf="_narrative.narrative.length > 1">
-            <span *ngFor="let x of _narrative.narrative; let i = index" class="items" [ngClass]="{'active': _activeNarrative === i}"></span>
+        <section *ngIf="_gameType == 1">
+          <div padding class="narration__item" *ngFor="let narrative of _narrative.narrative; let i = index" [ngClass]="{
+            'inactive': _activeNarrative !== i}" (swipeLeft)="swipe('left')" (swipeRight)="swipe('right')" [innerHTML]="narrative">
           </div>
-          <div padding>
-            <button ion-button round block large (click)="startGame()" [disabled]="_activeNarrative+1 !== _narrative.narrative.length">
-              {{ _narrative.buttonText }}
-            </button>
+          <section class="actions">
+            <div *ngIf="_narrative.narrative.length > 1">
+              <span *ngFor="let x of _narrative.narrative; let i = index" class="items" [ngClass]="{'active': _activeNarrative === i}"></span>
+            </div>
+            <div padding>
+              <button ion-button round block large (click)="startGame()" [disabled]="_activeNarrative+1 !== _narrative.narrative.length">
+                {{ _narrative.buttonText }}
+              </button>
+            </div>
+          </section>
+        </section>
+        <section *ngIf="_gameType == 2">
+          <div padding class="narration__item" *ngFor="let narrative of _narrative.narrativeFree; let i = index" [ngClass]="{
+            'inactive': _activeNarrative !== i}" (swipeLeft)="swipe('left')" (swipeRight)="swipe('right')" [innerHTML]="narrative">
           </div>
+          <section class="actions">
+            <div *ngIf="_narrative.narrativeFree.length > 1">
+              <span *ngFor="let x of _narrative.narrativeFree; let i = index" class="items" [ngClass]="{'active': _activeNarrative === i}"></span>
+            </div>
+            <div padding>
+              <button ion-button round block large (click)="startGame()" [disabled]="_activeNarrative+1 !== _narrative.narrativeFree.length">
+                {{ _narrative.buttonFree }}
+              </button>
+            </div>
+          </section>
         </section>
       </div>
     </section>

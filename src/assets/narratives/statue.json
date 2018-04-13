@@ -5,6 +5,10 @@
   "narrative": [
     "Dit is het verzamelpunt van onze verkenners, ik ga je een geheim signaal leren om hun aandacht te trekken"
   ],
+  "narrativeFree": [
+    "Dit is het verzamelpunt van onze verkenners, ik ga je een geheim signaal leren om hun aandacht te trekken"
+  ],
+  "buttonFree": "Start spel",
   "buttonText": "Start spel",
   "game": "walkapath",
   "afterNarrativeFile": "statue2.json"

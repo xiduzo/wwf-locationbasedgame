@@ -5,6 +5,10 @@
   "narrative": [
     "Ik hoorde al dat jullie onderweg waren! Mijn naam is Meester Muis en ik ga jullie ranger kennis testen"
   ],
+  "narrativeFree": [
+    "Ik hoorde al dat jullie onderweg waren! Mijn naam is Meester Muis en ik ga jullie ranger kennis testen"
+  ],
+  "buttonFree": "Start spel",
   "buttonText": "Start spel",
   "game": "questions",
   "afterNarrativeFile": "stones2.json"

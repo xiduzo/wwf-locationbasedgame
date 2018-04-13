@@ -5,6 +5,10 @@
   "narrative": [
     "Wat spannend! Een verborgen schat! Hebben jullie een goed genoeg geheugen om hem te vinden?"
   ],
+  "narrativeFree": [
+    "Wat spannend! Een verborgen schat! Hebben jullie een goed genoeg geheugen om hem te vinden?"
+  ],
+  "buttonFree": "Start spel",
   "buttonText": "Start spel",
   "game": "hexagons",
   "afterNarrativeFile": "hexagons2.json"

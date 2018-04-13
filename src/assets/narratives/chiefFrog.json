@@ -7,5 +7,11 @@
     "Als gloednieuwe rangers gaan jullie vandaag op pad om te leren wat een ranger zoal moet kunnen.",
     "Een ervaran ranger zit op jullie te wachten bij de Grote vijver. Veel succes en plezier vandaag!"
   ],
+  "narrativeFree": [
+    "Hey jullie daar! Welkom bij het hoofdkwartier. Mijn naam is Hops en ik ben de hoofdranger van het Vondelpark.",
+    "Als gloednieuwe rangers gaan jullie vandaag op pad om te leren wat een ranger zoal moet kunnen.",
+    "Op de kaart heb ik verschillende interessante locaties gemarkeerd, wees niet bang om deze te ontdekken!"
+  ],
+  "buttonFree": "Start spel",
   "buttonText": "Ga naar locatie"
 }

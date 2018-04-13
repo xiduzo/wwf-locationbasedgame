@@ -5,5 +5,9 @@
   "narrative": [
     "Jullie hebbem hem gevonden! Laten we gelijk jullie richtingsgevoel testen op de volgende trainingslocatie."
   ],
+  "narrativeFree": [
+    "Wat goed, jullie hebben hem gevonden! Bij het standbeeld kun je leren hoe je een kompas moet gebruiken!"
+  ],
+  "buttonFree": "terug naar kaart",
   "buttonText": "Ga naar locatie"
 }
